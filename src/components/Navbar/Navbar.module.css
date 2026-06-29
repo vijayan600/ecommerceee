@@ -1,0 +1,204 @@
+.navbar {
+  background-color: var(--navy);
+  color: white;
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--shadow);
+}
+
+.navContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.logoPart {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+}
+
+.logoTamil {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.logoEnglish {
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+}
+
+.searchBar {
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  background: white;
+  border-radius: 50px;
+  border: 1.5px solid transparent;
+  padding: 3px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+  transition: all 0.25s ease;
+  position: relative;
+  align-items: center;
+}
+
+.searchBar:focus-within {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 4px rgba(0, 180, 216, 0.15);
+}
+
+.searchBar input {
+  flex: 1;
+  padding: 0.5rem 1.25rem;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  background: transparent;
+}
+
+.searchActions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding-right: 3px;
+}
+
+.micBtn {
+  color: #4b5563;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.micBtn:hover {
+  background-color: #f3f4f6;
+  color: var(--teal);
+}
+
+.searchBtn {
+  background-color: var(--teal);
+  color: white;
+  padding: 0.5rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 180, 216, 0.2);
+}
+
+.searchBtn:hover {
+  background-color: #0096b4;
+  box-shadow: 0 4px 6px rgba(0, 180, 216, 0.3);
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navLink {
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.navLink:hover {
+  color: var(--teal);
+}
+
+.langToggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+}
+
+.cartBtn {
+  position: relative;
+  color: white;
+}
+
+.cartBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ff3e3e;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 10px;
+  border: 2px solid var(--navy);
+}
+
+.menuBtn {
+  display: none;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .navContainer {
+    padding: 0 1rem;
+  }
+
+  .menuBtn {
+    display: block;
+  }
+
+  .searchBar {
+    display: none; /* Hide main search on mobile, maybe put in menu */
+  }
+
+  .navActions {
+    position: fixed;
+    top: 70px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background: var(--navy);
+    flex-direction: column;
+    padding: 2rem;
+    transition: 0.3s ease-in-out;
+    z-index: 999;
+  }
+
+  .navActions.menuOpen {
+    left: 0;
+  }
+
+  .navLink {
+    font-size: 1.2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    text-align: center;
+  }
+}

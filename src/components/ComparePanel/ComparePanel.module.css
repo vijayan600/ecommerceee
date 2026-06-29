@@ -1,0 +1,147 @@
+.panel {
+  position: fixed;
+  right: -320px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 320px;
+  background: white;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+  z-index: 1500;
+  transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-radius: 20px 0 0 20px;
+  border: 1px solid var(--border-color);
+}
+
+.panel.open {
+  right: 0;
+}
+
+.toggleBtn {
+  position: absolute;
+  left: -44px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 120px;
+  background: var(--navy);
+  color: white;
+  border-radius: 12px 0 0 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.count {
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: 800;
+  font-size: 0.75rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.verticalText {
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+}
+
+.content {
+  padding: 1.5rem;
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.header h3 {
+  color: var(--navy);
+  font-size: 1.2rem;
+}
+
+.productList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--light-gray);
+  padding: 0.75rem;
+  border-radius: 8px;
+  position: relative;
+}
+
+.item img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  background: white;
+  border-radius: 4px;
+}
+
+.itemInfo h4 {
+  font-size: 0.85rem;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.itemInfo p {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--teal);
+}
+
+.removeBtn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: white;
+  color: #ff3e3e;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid var(--border-color);
+}
+
+.actions {
+  margin-top: 2rem;
+}
+
+.aiBtn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--navy) 0%, #1e293b 100%);
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 700;
+  transition: var(--transition);
+}
+
+.aiBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}

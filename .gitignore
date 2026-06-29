@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.history/
+.env
+venv/
+__pycache__/
+test/
+api_smoke_test/
+.vscode/
+app/.env

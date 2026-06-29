@@ -1,0 +1,156 @@
+// adminData.js - static fallback data for AdminDashboard
+export const staticDashboard = {
+  todays_orders: 12,
+  todays_revenue: '8500',
+  weekly_revenue: '54000',
+  monthly_revenue: '210000',
+  weekly_percent_change: 8,
+  top_products: [
+    { name: 'Granite Grinder', count: 34 },
+    { name: 'Stainless Steel Bowl', count: 27 },
+    { name: 'Turbo Mixer', count: 22 },
+    { name: 'Compact Juicer', count: 19 },
+    { name: 'Premium Blender', count: 15 },
+  ],
+  low_stock: [
+    { name: 'Granite Grinder', stock: 3 },
+    { name: 'Turbo Mixer', stock: 2 },
+  ],
+};
+
+export const staticOrders = [
+  {
+    id: 1001,
+    delivery_address: { full_name: 'Anita Patel' },
+    items: [{ name: 'Granite Grinder', quantity: 1 }],
+    total_amount: 7500,
+    created_at: new Date().toISOString(),
+    status: 'pending',
+  },
+  {
+    id: 1002,
+    delivery_address: { full_name: 'Rohit Singh' },
+    items: [
+      { name: 'Stainless Steel Bowl', quantity: 2 },
+      { name: 'Compact Juicer', quantity: 1 },
+    ],
+    total_amount: 2300,
+    created_at: new Date().toISOString(),
+    status: 'confirmed',
+  },
+  {
+    id: 1003,
+    delivery_address: { full_name: 'Sneha Kumar' },
+    items: [{ name: 'Turbo Mixer', quantity: 1 }],
+    total_amount: 6800,
+    created_at: new Date().toISOString(),
+    status: 'out_for_delivery',
+  },
+  {
+    id: 1004,
+    delivery_address: { full_name: 'Amit Verma' },
+    items: [{ name: 'Premium Blender', quantity: 2 }],
+    total_amount: 15000,
+    created_at: new Date().toISOString(),
+    status: 'delivered',
+  },
+  {
+    id: 1005,
+    delivery_address: { full_name: 'Priya Shah' },
+    items: [{ name: 'Compact Juicer', quantity: 3 }],
+    total_amount: 5400,
+    created_at: new Date().toISOString(),
+    status: 'pending',
+  },
+];
+
+export const staticProducts = [
+  {
+    id: 1,
+    name: 'Granite Grinder',
+    image: 'https://via.placeholder.com/60',
+    price: 7500,
+    stock: 5,
+    available: true,
+    note: 'Best seller',
+  },
+  {
+    id: 2,
+    name: 'Stainless Steel Bowl',
+    image: 'https://via.placeholder.com/60',
+    price: 1200,
+    stock: 12,
+    available: true,
+    note: '',
+  },
+  {
+    id: 3,
+    name: 'Turbo Mixer',
+    image: 'https://via.placeholder.com/60',
+    price: 6800,
+    stock: 2,
+    available: true,
+    note: '',
+  },
+  {
+    id: 4,
+    name: 'Compact Juicer',
+    image: 'https://via.placeholder.com/60',
+    price: 1800,
+    stock: 8,
+    available: true,
+    note: '',
+  },
+  {
+    id: 5,
+    name: 'Premium Blender',
+    image: 'https://via.placeholder.com/60',
+    price: 7500,
+    stock: 4,
+    available: true,
+    note: '',
+  },
+];
+
+export const staticCustomers = [
+  {
+    id: 1,
+    name: 'Anita Patel',
+    email: 'anita@example.com',
+    phone: '9876543210',
+    total_orders: 5,
+    total_spent: 38000,
+  },
+  {
+    id: 2,
+    name: 'Rohit Singh',
+    email: 'rohit@example.com',
+    phone: '9123456789',
+    total_orders: 3,
+    total_spent: 15000,
+  },
+  {
+    id: 3,
+    name: 'Sneha Kumar',
+    email: 'sneha@example.com',
+    phone: '9988776655',
+    total_orders: 2,
+    total_spent: 6800,
+  },
+  {
+    id: 4,
+    name: 'Amit Verma',
+    email: 'amit@example.com',
+    phone: '8877665544',
+    total_orders: 4,
+    total_spent: 22000,
+  },
+  {
+    id: 5,
+    name: 'Priya Shah',
+    email: 'priya@example.com',
+    phone: '7766554433',
+    total_orders: 1,
+    total_spent: 5400,
+  },
+];
