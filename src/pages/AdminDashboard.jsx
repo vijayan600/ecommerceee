@@ -91,21 +91,56 @@ const staticOrders = [
     created_at: new Date(Date.now() - 7200000).toISOString(),
     status: 'delivered',
   },
+  {
+    id: 'ORD-1005',
+    delivery_address: { full_name: 'Priya Nair' },
+    items: [{ name: 'Granite Wet Grinder', quantity: 1 }, { name: 'Stainless Steel Bowl', quantity: 1 }],
+    total_amount: 8700,
+    created_at: new Date(Date.now() - 10800000).toISOString(),
+    status: 'confirmed',
+  },
+  {
+    id: 'ORD-1006',
+    delivery_address: { full_name: 'Karthik Rajan' },
+    items: [{ name: 'Compact Juicer Pro', quantity: 2 }],
+    total_amount: 5600,
+    created_at: new Date(Date.now() - 14400000).toISOString(),
+    status: 'pending',
+  },
+  {
+    id: 'ORD-1007',
+    delivery_address: { full_name: 'Lakshmi Devi' },
+    items: [{ name: 'Turbo Mixer 750W', quantity: 1 }, { name: 'Premium Blender 1L', quantity: 1 }],
+    total_amount: 8000,
+    created_at: new Date(Date.now() - 86400000).toISOString(),
+    status: 'delivered',
+  },
 ];
 
 const staticProducts = [
-  { id: 1, name: 'Granite Wet Grinder',  image: 'https://placehold.co/60x60/1a1a2e/FFD700?text=GG', price: 7500,  stock: 2,  available: true,  note: 'Best seller' },
-  { id: 2, name: 'Stainless Steel Bowl', image: 'https://placehold.co/60x60/1a1a2e/FFD700?text=SB', price: 1200,  stock: 14, available: true,  note: '' },
-  { id: 3, name: 'Turbo Mixer 750W',     image: 'https://placehold.co/60x60/1a1a2e/FFD700?text=TM', price: 4200,  stock: 4,  available: true,  note: 'Low stock' },
-  { id: 4, name: 'Compact Juicer Pro',   image: 'https://placehold.co/60x60/1a1a2e/FFD700?text=CJ', price: 2800,  stock: 9,  available: true,  note: '' },
-  { id: 5, name: 'Premium Blender 1L',   image: 'https://placehold.co/60x60/1a1a2e/FFD700?text=PB', price: 3800,  stock: 7,  available: false, note: 'Out of season' },
+  { id: 1, name: 'Granite Wet Grinder 2L',     image: 'https://placehold.co/60x60/1a1a2e/FFD700?text=GG', price: 7500,  stock: 2,  available: true,  note: 'Best seller' },
+  { id: 2, name: 'Stainless Steel Bowl 5L',    image: 'https://placehold.co/60x60/1a1a2e/FFD700?text=SB', price: 1200,  stock: 14, available: true,  note: '' },
+  { id: 3, name: 'Turbo Mixer 750W',            image: 'https://placehold.co/60x60/1a1a2e/FFD700?text=TM', price: 4200,  stock: 4,  available: true,  note: 'Low stock' },
+  { id: 4, name: 'Compact Juicer Pro 500ml',   image: 'https://placehold.co/60x60/1a1a2e/FFD700?text=CJ', price: 2800,  stock: 9,  available: true,  note: '' },
+  { id: 5, name: 'Premium Blender 1L',          image: 'https://placehold.co/60x60/1a1a2e/FFD700?text=PB', price: 3800,  stock: 7,  available: false, note: 'Out of season' },
+  { id: 6, name: 'Table Top Wet Grinder 1.25L', image: 'https://placehold.co/60x60/1a1a2e/FFD700?text=TG', price: 5999,  stock: 6,  available: true,  note: 'New arrival' },
+  { id: 7, name: 'Heavy Duty Mixer Grinder',    image: 'https://placehold.co/60x60/1a1a2e/FFD700?text=HM', price: 3499,  stock: 11, available: true,  note: '' },
+  { id: 8, name: 'Atta Kneader 3L',             image: 'https://placehold.co/60x60/1a1a2e/FFD700?text=AK', price: 6200,  stock: 3,  available: true,  note: 'Limited stock' },
+  { id: 9, name: 'Coconut Scraper Machine',     image: 'https://placehold.co/60x60/1a1a2e/FFD700?text=CS', price: 2100,  stock: 18, available: true,  note: '' },
+  { id: 10, name: 'Commercial Grinder 10L',     image: 'https://placehold.co/60x60/1a1a2e/FFD700?text=CG', price: 22000, stock: 1,  available: true,  note: 'Premium' },
 ];
 
 const staticCustomers = [
-  { id: 1, name: 'Anita Patel',    email: 'anita@example.com',  phone: '9876543210', total_orders: 5, total_spent: 38000 },
-  { id: 2, name: 'Rohit Singh',    email: 'rohit@example.com',  phone: '9123456789', total_orders: 3, total_spent: 15000 },
-  { id: 3, name: 'Meena Krishnan', email: 'meena@example.com',  phone: '9988776655', total_orders: 8, total_spent: 62000 },
-  { id: 4, name: 'Suresh Kumar',   email: 'suresh@example.com', phone: '9871234560', total_orders: 2, total_spent: 8200  },
+  { id: 1, name: 'Anita Patel',       email: 'anita.patel@gmail.com',    phone: '9876543210', total_orders: 5,  total_spent: 38000 },
+  { id: 2, name: 'Meena Krishnan',    email: 'meena.k@gmail.com',        phone: '9988776655', total_orders: 8,  total_spent: 62000 },
+  { id: 3, name: 'Rohit Singh',       email: 'rohit.singh@gmail.com',    phone: '9123456789', total_orders: 3,  total_spent: 15000 },
+  { id: 4, name: 'Suresh Kumar',      email: 'suresh.k@yahoo.com',       phone: '9871234560', total_orders: 2,  total_spent: 8200  },
+  { id: 5, name: 'Priya Nair',        email: 'priya.nair@gmail.com',     phone: '9845001234', total_orders: 6,  total_spent: 47500 },
+  { id: 6, name: 'Karthik Rajan',     email: 'karthik.r@outlook.com',    phone: '9900112233', total_orders: 4,  total_spent: 22400 },
+  { id: 7, name: 'Lakshmi Devi',      email: 'lakshmi.d@gmail.com',      phone: '9765432100', total_orders: 10, total_spent: 78000 },
+  { id: 8, name: 'Venkatesh Iyer',    email: 'venkatesh.i@gmail.com',    phone: '9632145870', total_orders: 1,  total_spent: 7500  },
+  { id: 9, name: 'Deepa Sundaram',    email: 'deepa.s@gmail.com',        phone: '9554433221', total_orders: 7,  total_spent: 54300 },
+  { id: 10, name: 'Rajesh Murugan',   email: 'rajesh.m@yahoo.com',       phone: '9443322110', total_orders: 3,  total_spent: 13800 },
 ];
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -130,37 +165,33 @@ export default function AdminDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Dashboard
-  const [dash, setDash]             = useState(staticDashboard);
+  const [dash, setDash]               = useState(staticDashboard);
   const [dashLoading, setDashLoading] = useState(false);
 
   // Orders
-  const [orders, setOrders]           = useState(staticOrders);
+  const [orders, setOrders]               = useState(staticOrders);
   const [ordersLoading, setOrdersLoading] = useState(false);
-  const [ordersError, setOrdersError]   = useState(null);
-  const [orderFilter, setOrderFilter]   = useState('');
+  const [orderFilter, setOrderFilter]     = useState('');
   const prevOrderCount = useRef(staticOrders.length);
   const ordersInterval = useRef(null);
 
   // Products
-  const [products, setProducts]           = useState(staticProducts);
+  const [products, setProducts]               = useState(staticProducts);
   const [productsLoading, setProductsLoading] = useState(false);
-  const [productsError, setProductsError]   = useState(null);
-  const [showAdd, setShowAdd]               = useState(false);
-  const [addData, setAddData]               = useState({ name: '', image: '', price: '', stock: '', note: '' });
-  const [editingId, setEditingId]           = useState(null);
-  const [editingData, setEditingData]       = useState({});
+  const [showAdd, setShowAdd]                 = useState(false);
+  const [addData, setAddData]                 = useState({ name: '', image: '', price: '', stock: '', note: '' });
+  const [editingId, setEditingId]             = useState(null);
+  const [editingData, setEditingData]         = useState({});
 
   // Customers
-  const [customers, setCustomers]           = useState(staticCustomers);
+  const [customers, setCustomers]               = useState(staticCustomers);
   const [customersLoading, setCustomersLoading] = useState(false);
-  const [customersError, setCustomersError]   = useState(null);
 
   // ── Loaders ────────────────────────────────────────────────────────────────
   const loadDashboard = useCallback(async () => {
     setDashLoading(true);
     try {
       const res = await adminGetDashboard();
-      // Only replace static data if API returns real non-zero values
       if (isValidDashboard(res)) setDash(res);
       else setDash(staticDashboard);
     } catch {
@@ -172,7 +203,6 @@ export default function AdminDashboard() {
 
   const loadOrders = useCallback(async (status) => {
     setOrdersLoading(true);
-    setOrdersError(null);
     try {
       const res  = await adminGetAllOrders(status);
       const list = Array.isArray(res) ? res : res?.orders || [];
@@ -183,8 +213,8 @@ export default function AdminDashboard() {
       } else {
         setOrders(staticOrders);
       }
-    } catch (e) {
-      setOrdersError(e?.message || 'Unable to load orders');
+    } catch {
+      // API failed → show static data silently
       setOrders(staticOrders);
     } finally {
       setOrdersLoading(false);
@@ -193,13 +223,12 @@ export default function AdminDashboard() {
 
   const loadProducts = useCallback(async () => {
     setProductsLoading(true);
-    setProductsError(null);
     try {
       const res  = await getAllProducts();
       const list = Array.isArray(res) ? res : res?.products || [];
       setProducts(list.length > 0 ? list : staticProducts);
-    } catch (e) {
-      setProductsError(e?.message || 'Unable to load products');
+    } catch {
+      // API failed → show static data silently, no error banner
       setProducts(staticProducts);
     } finally {
       setProductsLoading(false);
@@ -208,7 +237,6 @@ export default function AdminDashboard() {
 
   const loadCustomers = useCallback(async () => {
     setCustomersLoading(true);
-    setCustomersError(null);
     try {
       const res  = await adminGetCustomers();
       const list = res?.customers || [];
@@ -218,8 +246,8 @@ export default function AdminDashboard() {
       } else {
         setCustomers(staticCustomers);
       }
-    } catch (e) {
-      setCustomersError(e?.message || 'Unable to load customers');
+    } catch {
+      // API failed → show static data silently, no error banner
       setCustomers(staticCustomers);
     } finally {
       setCustomersLoading(false);
@@ -281,6 +309,11 @@ export default function AdminDashboard() {
     { key: 'customers', label: 'Customers' },
   ];
 
+  // filtered orders for display
+  const displayOrders = orderFilter
+    ? orders.filter(o => o.status === orderFilter)
+    : orders;
+
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
     <div className="admin-dashboard">
@@ -333,10 +366,10 @@ export default function AdminDashboard() {
                 {/* Stat Cards */}
                 <div className="grid stat-grid">
                   {[
-                    { label: "Today's Orders",   value: dash.todays_orders ?? 0,                    raw: false },
-                    { label: "Today's Revenue",  value: formatINR(dash.todays_revenue),              raw: true  },
-                    { label: 'Weekly Revenue',   value: formatINR(dash.weekly_revenue),              raw: true  },
-                    { label: 'Monthly Revenue',  value: formatINR(dash.monthly_revenue),             raw: true  },
+                    { label: "Today's Orders",   value: dash.todays_orders ?? 0 },
+                    { label: "Today's Revenue",  value: formatINR(dash.todays_revenue) },
+                    { label: 'Weekly Revenue',   value: formatINR(dash.weekly_revenue) },
+                    { label: 'Monthly Revenue',  value: formatINR(dash.monthly_revenue) },
                   ].map(({ label, value }) => (
                     <div key={label} className="stat-card">
                       <div className="stat-label">{label}</div>
@@ -413,7 +446,10 @@ export default function AdminDashboard() {
         {/* ── ORDERS ────────────────────────────────────────────────────── */}
         {active === 'orders' && (
           <section className="section orders">
-            <h1 className="section-title">Orders</h1>
+            <div className="section-header">
+              <h1 className="section-title">Orders</h1>
+              <span className="order-count-badge">{displayOrders.length} orders</span>
+            </div>
             <div className="filter-bar">
               {['', 'pending', 'confirmed', 'out_for_delivery', 'delivered'].map((s) => (
                 <button key={s} className={`filter-btn ${orderFilter === s ? 'selected' : ''}`}
@@ -424,32 +460,43 @@ export default function AdminDashboard() {
             </div>
             {ordersLoading ? (
               <div className="loader">Loading orders…</div>
-            ) : ordersError ? (
-              <div className="error">{ordersError}</div>
             ) : (
               <div className="table-wrapper">
                 <table className="orders-table">
                   <thead>
                     <tr>
-                      <th>Order ID</th><th>Customer</th><th>Items</th>
-                      <th>Total</th><th>Date</th><th>Status</th><th>Change</th>
+                      <th>Order ID</th>
+                      <th>Customer</th>
+                      <th>Items</th>
+                      <th>Total</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                      <th>Update</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {orders.map((o) => (
+                    {displayOrders.map((o) => (
                       <tr key={o.id}>
-                        <td>#{String(o.id).slice(-6)}</td>
-                        <td>{o.delivery_address?.full_name || '—'}</td>
-                        <td>{(o.items || []).map((it) => `${it.name} ×${it.quantity}`).join(', ')}</td>
-                        <td>{formatINR(o.total_amount)}</td>
-                        <td>{new Date(o.created_at).toLocaleString()}</td>
+                        <td className="order-id-cell">#{String(o.id).slice(-6)}</td>
+                        <td className="customer-cell">{o.delivery_address?.full_name || '—'}</td>
+                        <td className="items-cell">
+                          <div className="items-list">
+                            {(o.items || []).map((it, idx) => (
+                              <span key={idx} className="item-chip">
+                                {it.name} <span className="item-qty">×{it.quantity}</span>
+                              </span>
+                            ))}
+                          </div>
+                        </td>
+                        <td className="total-cell">{formatINR(o.total_amount)}</td>
+                        <td className="date-cell">{new Date(o.created_at).toLocaleString('en-IN', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}</td>
                         <td><span className={`status-badge status-${o.status}`}>{o.status.replace(/_/g,' ')}</span></td>
                         <td>
                           <select defaultValue={o.status} onChange={(e) => handleChangeStatus(o.id, e.target.value)}>
-                            <option value="pending">pending</option>
-                            <option value="confirmed">confirmed</option>
-                            <option value="out_for_delivery">out for delivery</option>
-                            <option value="delivered">delivered</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="out_for_delivery">Out for Delivery</option>
+                            <option value="delivered">Delivered</option>
                           </select>
                         </td>
                       </tr>
@@ -464,62 +511,82 @@ export default function AdminDashboard() {
         {/* ── PRODUCTS ──────────────────────────────────────────────────── */}
         {active === 'products' && (
           <section className="section products">
-            <h1 className="section-title">Products</h1>
-            <div className="product-header">
+            <div className="section-header">
+              <h1 className="section-title">Products</h1>
               <button className="add-btn" onClick={() => setShowAdd((s) => !s)}>
                 {showAdd ? 'Cancel' : '+ Add Product'}
               </button>
             </div>
             {showAdd && (
               <form className="add-form" onSubmit={handleAddProduct}>
-                <div className="grid">
-                  <input required placeholder="Name"      value={addData.name}  onChange={(e) => setAddData({ ...addData, name: e.target.value })} />
-                  <input          placeholder="Image URL" value={addData.image} onChange={(e) => setAddData({ ...addData, image: e.target.value })} />
-                  <input required placeholder="Price"     type="number" min="0" value={addData.price}  onChange={(e) => setAddData({ ...addData, price: e.target.value })} />
-                  <input required placeholder="Stock"     type="number" min="0" value={addData.stock}  onChange={(e) => setAddData({ ...addData, stock: e.target.value })} />
-                  <input          placeholder="Note"      value={addData.note}  onChange={(e) => setAddData({ ...addData, note: e.target.value })} />
-                  <button type="submit" className="save-btn">Save</button>
+                <div className="add-form-grid">
+                  <input required placeholder="Product Name" value={addData.name}  onChange={(e) => setAddData({ ...addData, name: e.target.value })} />
+                  <input          placeholder="Image URL"    value={addData.image} onChange={(e) => setAddData({ ...addData, image: e.target.value })} />
+                  <input required placeholder="Price (₹)"   type="number" min="0" value={addData.price}  onChange={(e) => setAddData({ ...addData, price: e.target.value })} />
+                  <input required placeholder="Stock"       type="number" min="0" value={addData.stock}  onChange={(e) => setAddData({ ...addData, stock: e.target.value })} />
+                  <input          placeholder="Note"        value={addData.note}  onChange={(e) => setAddData({ ...addData, note: e.target.value })} />
+                  <button type="submit" className="save-btn">Save Product</button>
                 </div>
               </form>
             )}
             {productsLoading ? (
               <div className="loader">Loading products…</div>
-            ) : productsError ? (
-              <div className="error">{productsError}</div>
             ) : (
               <div className="table-wrapper">
                 <table className="products-table">
                   <thead>
-                    <tr><th>Image</th><th>Name</th><th>Price</th><th>Stock</th><th>Available</th><th>Actions</th></tr>
+                    <tr>
+                      <th>Image</th>
+                      <th>Product Name</th>
+                      <th>Price</th>
+                      <th>Stock</th>
+                      <th>Note</th>
+                      <th>Available</th>
+                      <th>Actions</th>
+                    </tr>
                   </thead>
                   <tbody>
                     {products.map((p) => (
-                      <tr key={p.id}>
-                        <td><img src={p.image} alt="" className="thumb" /></td>
-                        <td>{editingId === p.id
-                          ? <input value={editingData.name} onChange={(e) => setEditingData({ ...editingData, name: e.target.value })} />
-                          : p.name}</td>
-                        <td>{editingId === p.id
-                          ? <input value={editingData.price} onChange={(e) => setEditingData({ ...editingData, price: e.target.value })} className="price-input" />
-                          : formatINR(p.price)}</td>
-                        <td>{editingId === p.id
-                          ? <input value={editingData.stock} onChange={(e) => setEditingData({ ...editingData, stock: e.target.value })} className="stock-input" />
-                          : p.stock}</td>
+                      <tr key={p.id} className={p.stock <= 3 ? 'low-stock-row' : ''}>
                         <td>
-                          <input type="checkbox" checked={p.available ?? true}
+                          <img src={p.image} alt={p.name} className="thumb" />
+                        </td>
+                        <td className="product-name-cell">
+                          {editingId === p.id
+                            ? <input value={editingData.name} onChange={(e) => setEditingData({ ...editingData, name: e.target.value })} />
+                            : <span>{p.name}</span>}
+                          {p.note && editingId !== p.id && <span className="product-note">{p.note}</span>}
+                        </td>
+                        <td className="price-cell">
+                          {editingId === p.id
+                            ? <input value={editingData.price} onChange={(e) => setEditingData({ ...editingData, price: e.target.value })} className="price-input" />
+                            : formatINR(p.price)}
+                        </td>
+                        <td>
+                          {editingId === p.id
+                            ? <input value={editingData.stock} onChange={(e) => setEditingData({ ...editingData, stock: e.target.value })} className="stock-input" />
+                            : <span className={`stock-num ${p.stock <= 3 ? 'stock-danger' : p.stock <= 6 ? 'stock-warn' : 'stock-ok'}`}>{p.stock}</span>}
+                        </td>
+                        <td className="note-cell">
+                          {editingId === p.id
+                            ? <input value={editingData.note || ''} onChange={(e) => setEditingData({ ...editingData, note: e.target.value })} placeholder="Note…" />
+                            : <span className="note-text">{p.note || '—'}</span>}
+                        </td>
+                        <td>
+                          <input type="checkbox" className="avail-check" checked={p.available ?? true}
                             onChange={async (e) => { await updateProduct(p.id, { available: e.target.checked }); await loadProducts(); }} />
                         </td>
                         <td>
                           {editingId === p.id ? (
-                            <>
+                            <div className="action-btns">
                               <button className="save-action"   onClick={() => handleEditSave(p.id)}>Save</button>
                               <button className="cancel-action" onClick={() => { setEditingId(null); setEditingData({}); }}>Cancel</button>
-                            </>
+                            </div>
                           ) : (
-                            <>
+                            <div className="action-btns">
                               <button className="edit-action"   onClick={() => { setEditingId(p.id); setEditingData({ name: p.name, image: p.image, price: p.price, stock: p.stock, note: p.note }); }}>Edit</button>
                               <button className="delete-action" onClick={() => handleDelete(p.id)}>Delete</button>
-                            </>
+                            </div>
                           )}
                         </td>
                       </tr>
@@ -534,25 +601,37 @@ export default function AdminDashboard() {
         {/* ── CUSTOMERS ─────────────────────────────────────────────────── */}
         {active === 'customers' && (
           <section className="section customers">
-            <h1 className="section-title">Customers</h1>
+            <div className="section-header">
+              <h1 className="section-title">Customers</h1>
+              <span className="order-count-badge">{customers.length} customers</span>
+            </div>
             {customersLoading ? (
               <div className="loader">Loading customers…</div>
-            ) : customersError ? (
-              <div className="error">{customersError}</div>
             ) : (
               <div className="table-wrapper">
                 <table className="customers-table">
                   <thead>
-                    <tr><th>Name</th><th>Email</th><th>Phone</th><th>Total Orders</th><th>Total Spent</th></tr>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Total Orders</th>
+                      <th>Total Spent</th>
+                    </tr>
                   </thead>
                   <tbody>
-                    {customers.map((c) => (
-                      <tr key={c.id}>
-                        <td>{c.name}</td>
-                        <td>{c.email}</td>
+                    {customers.map((c, i) => (
+                      <tr key={c.id} className={i === 0 ? 'top-customer' : ''}>
+                        <td className="rank-cell">{i + 1}</td>
+                        <td className="customer-name-cell">
+                          {c.name}
+                          {i === 0 && <span className="vip-badge">⭐ Top</span>}
+                        </td>
+                        <td className="email-cell">{c.email}</td>
                         <td>{c.phone}</td>
-                        <td>{c.total_orders || 0}</td>
-                        <td>{formatINR(c.total_spent)}</td>
+                        <td className="orders-cell">{c.total_orders || 0}</td>
+                        <td className="spent-cell">{formatINR(c.total_spent)}</td>
                       </tr>
                     ))}
                   </tbody>
