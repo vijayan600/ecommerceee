@@ -16,6 +16,12 @@ import philipsiron from '../assets/Philips Steam Iron GC1905.webp';
 import havells from '../assets/Havells Aquas Water Purifier.webp';
 import hiflo from '../assets/HiFlo Rechargeable Mosquito Racket.webp';
 
+// Helper: calculate minimum monthly EMI (12-month tenure, 14% p.a.)
+function calcEmi(price, months = 12, ratePercent = 14) {
+  const r = ratePercent / 12 / 100;
+  return Math.round((price * r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1));
+}
+
 export const products = [
   // Wet Grinders
   {
@@ -23,7 +29,7 @@ export const products = [
     name: "Suguna Table Top Wet Grinder - 2L",
     brand: "Suguna",
     category: "Wet Grinder",
-    price: 1,
+    price: 4499,
     originalPrice: 5999,
     discount: 25,
     rating: 4.8,
@@ -31,6 +37,7 @@ export const products = [
     image: sugunawetgriender,
     inStock: true,
     badge: "Best Seller",
+    emi: { available: true, minMonths: 6, maxMonths: 24, monthlyFrom: calcEmi(4499, 6) },
     specs: { "Capacity": "2 Litres", "Motor": "150W", "Material": "Stainless Steel" }
   },
   {
@@ -45,6 +52,7 @@ export const products = [
     reviews: 850,
     image: vidiemwetgriender,
     inStock: true,
+    emi: { available: true, minMonths: 6, maxMonths: 24, monthlyFrom: calcEmi(5200, 6) },
     specs: { "Capacity": "2 Litres", "Motor": "140W", "Weight": "12kg" }
   },
   {
@@ -60,6 +68,7 @@ export const products = [
     image: butterflywetgriender,
     inStock: true,
     badge: "New",
+    emi: { available: true, minMonths: 6, maxMonths: 24, monthlyFrom: calcEmi(3999, 6) },
     specs: { "Capacity": "2 Litres", "Motor": "150W", "Body": "ABS Plastic" }
   },
   {
@@ -75,6 +84,7 @@ export const products = [
     image: sugunawetgriender2,
     inStock: true,
     badge: "Deal",
+    emi: { available: true, minMonths: 6, maxMonths: 24, monthlyFrom: calcEmi(12500, 12) },
     specs: { "Capacity": "5 Litres", "Motor": "0.5 HP", "Type": "Tilting" }
   },
 
@@ -91,6 +101,7 @@ export const products = [
     reviews: 1500,
     image: prestigegasstove,
     inStock: true,
+    emi: { available: true, minMonths: 3, maxMonths: 12, monthlyFrom: calcEmi(2800, 3) },
     specs: { "Burners": "2", "Material": "Glass Top", "Ignition": "Manual" }
   },
   {
@@ -106,6 +117,7 @@ export const products = [
     image: butterflygasstove,
     inStock: true,
     badge: "Best Seller",
+    emi: { available: true, minMonths: 3, maxMonths: 12, monthlyFrom: calcEmi(3499, 3) },
     specs: { "Burners": "3", "Material": "Toughened Glass", "Ignition": "Manual" }
   },
   {
@@ -120,6 +132,7 @@ export const products = [
     reviews: 980,
     image: suryagasstove,
     inStock: true,
+    emi: { available: true, minMonths: 3, maxMonths: 12, monthlyFrom: calcEmi(1999, 3) },
     specs: { "Burners": "2", "Material": "Stainless Steel", "Ignition": "Manual" }
   },
 
@@ -136,11 +149,12 @@ export const products = [
     reviews: 5400,
     image: cromptonfan,
     inStock: true,
+    emi: { available: true, minMonths: 3, maxMonths: 12, monthlyFrom: calcEmi(1599, 3) },
     specs: { "Type": "Ceiling", "Sweep": "1200mm", "Speed": "380 RPM" }
   },
   {
     id: 9,
-    name: "Orient Electric Stand-37 Trend Far",
+    name: "Orient Electric Stand-37 Trend Fan",
     brand: "Orient",
     category: "Fan",
     price: 2499,
@@ -150,6 +164,7 @@ export const products = [
     reviews: 1200,
     image: orientfan,
     inStock: true,
+    emi: { available: true, minMonths: 3, maxMonths: 12, monthlyFrom: calcEmi(2499, 3) },
     specs: { "Type": "Pedestal", "Speed": "1300 RPM", "Oscillation": "Yes" }
   },
   {
@@ -164,6 +179,7 @@ export const products = [
     reviews: 650,
     image: suryafan,
     inStock: true,
+    emi: { available: false },
     specs: { "Type": "Table", "Speed": "2000 RPM", "Blades": "3" }
   },
 
@@ -181,6 +197,7 @@ export const products = [
     image: samsungtv,
     inStock: true,
     badge: "Best Seller",
+    emi: { available: true, minMonths: 6, maxMonths: 24, monthlyFrom: calcEmi(32990, 12) },
     specs: { "Size": "43 inch", "Resolution": "4K Ultra HD", "Smart TV": "Yes" }
   },
   {
@@ -195,6 +212,7 @@ export const products = [
     reviews: 8400,
     image: sonytv,
     inStock: true,
+    emi: { available: true, minMonths: 6, maxMonths: 24, monthlyFrom: calcEmi(24990, 12) },
     specs: { "Size": "32 inch", "Resolution": "HD Ready", "Smart TV": "Yes" }
   },
   {
@@ -210,6 +228,7 @@ export const products = [
     image: philipstv,
     inStock: true,
     badge: "Deal",
+    emi: { available: true, minMonths: 6, maxMonths: 24, monthlyFrom: calcEmi(38999, 12) },
     specs: { "Size": "50 inch", "Resolution": "4K UHD", "Smart TV": "Yes" }
   },
 
@@ -227,6 +246,7 @@ export const products = [
     image: preethi,
     inStock: true,
     badge: "Best Seller",
+    emi: { available: true, minMonths: 6, maxMonths: 24, monthlyFrom: calcEmi(8500, 6) },
     specs: { "Motor": "750W", "Jars": "5", "Color": "Black" }
   },
   {
@@ -241,6 +261,7 @@ export const products = [
     reviews: 4500,
     image: philipsiron,
     inStock: true,
+    emi: { available: false },
     specs: { "Type": "Steam", "Power": "1440W", "Soleplate": "Non-stick" }
   },
   {
@@ -255,10 +276,11 @@ export const products = [
     reviews: 890,
     image: havells,
     inStock: true,
+    emi: { available: true, minMonths: 6, maxMonths: 24, monthlyFrom: calcEmi(12999, 12) },
     specs: { "Purification": "RO + UV", "Capacity": "7L", "Type": "Wall Mounted" }
   },
 
-  // Small Appliances / Mosquito Rackets
+  // Small Appliances
   {
     id: 17,
     name: "HiFlo Rechargeable Mosquito Racket",
@@ -272,6 +294,7 @@ export const products = [
     image: hiflo,
     inStock: true,
     badge: "Best Seller",
+    emi: { available: false },
     specs: { "Battery": "1200mAh", "Charge Time": "4 hours", "Warranty": "6 months" }
   }
 ];

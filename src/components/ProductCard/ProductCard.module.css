@@ -250,3 +250,16 @@
     height: 12px !important;
   }
 }
+/* Add these two rules to the bottom of ProductCard.module.css */
+
+.emiAmount {
+  color: #0f766e;
+  font-weight: 700;
+}
+
+.emiUnavailable {
+  font-size: 0.7rem;
+  color: #d1d5db;
+  margin-bottom: 0.75rem;
+  font-style: italic;
+}

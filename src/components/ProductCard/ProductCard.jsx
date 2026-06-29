@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Star, ShoppingCart, Zap } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import styles from './ProductCard.module.css';
@@ -12,26 +12,20 @@ const ProductCard = ({ product }) => {
 
   const isComparing = compareList.some(p => p.id === product.id);
 
-  const handleCardClick = () => {
-    navigate(`/product/${product.id}`);
-  };
+  const handleCardClick = () => navigate(`/product/${product.id}`);
+  const handleBuyNow = (e) => { e.stopPropagation(); navigate(`/product/${product.id}`); };
+  const handleImgError = (e) => { e.target.src = placeholderImg; };
 
-  const handleBuyNow = (e) => {
-    e.stopPropagation();
-    navigate(`/product/${product.id}`);
-  };
-
-  const handleImgError = (e) => {
-    e.target.src = placeholderImg;
-  };
+  const emi = product.emi;
+  const showEmi = emi?.available && emi?.monthlyFrom;
 
   return (
     <div className={styles.card} onClick={handleCardClick}>
       <div className={styles.imageWrapper}>
-        <img 
-          src={product.image} 
-          alt={product.name} 
-          className={styles.image} 
+        <img
+          src={product.image}
+          alt={product.name}
+          className={styles.image}
           onError={handleImgError}
         />
         {product.badge && <span className={styles.badge}>{product.badge}</span>}
@@ -66,8 +60,16 @@ const ProductCard = ({ product }) => {
           <span className={styles.discount}>{product.discount}% off</span>
         </div>
 
-        {product.price > 5000 && (
-          <p className={styles.emi}>EMI available from ₹999/month</p>
+        {showEmi ? (
+          <p className={styles.emi}>
+            No-cost EMI from{' '}
+            <span className={styles.emiAmount}>
+              ₹{emi.monthlyFrom.toLocaleString('en-IN')}/mo
+            </span>
+            {' '}· {emi.minMonths}–{emi.maxMonths} months
+          </p>
+        ) : (
+          <p className={styles.emiUnavailable}>EMI not available</p>
         )}
 
         <div className={styles.actions}>
@@ -78,10 +80,7 @@ const ProductCard = ({ product }) => {
             <ShoppingCart size={18} />
             <span>Add to Cart</span>
           </button>
-          <button
-            className={styles.buyBtn}
-            onClick={handleBuyNow}
-          >
+          <button className={styles.buyBtn} onClick={handleBuyNow}>
             <Zap size={18} />
             <span>Buy Now</span>
           </button>
