@@ -1,3 +1,709 @@
+/* AdminDashboard.css — Black & Gold premium theme, fully responsive */
+
+/* ─── CSS Variables ──────────────────────────────────────────────── */
+:root {
+  --bg-black:    #0a0a0a;
+  --bg-dark:     #111;
+  --gold:        #d4af37;
+  --gold-light:  #ffd700;
+  --text-light:  #f5f5f5;
+  --text-muted:  #aaa;
+  --sidebar-w:   240px;
+  --mobile-header-h: 52px;
+  --mobile-tabs-h:   56px;
+}
+
+/* ─── Reset ──────────────────────────────────────────────────────── */
+.admin-dashboard *,
+.admin-dashboard *::before,
+.admin-dashboard *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ─── Shell ──────────────────────────────────────────────────────── */
+.admin-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-black);
+  color: var(--text-light);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   SIDEBAR  (desktop only)
+   ════════════════════════════════════════════════════════════════════ */
+.sidebar {
+  width: var(--sidebar-w);
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(14px);
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 200;
+}
+
+.sidebar .brand {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 2rem;
+  letter-spacing: 1px;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.72rem 1rem;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  text-align: left;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--text-light);
+}
+
+.nav-item.active {
+  background: rgba(212, 175, 55, 0.18);
+  color: var(--gold-light);
+}
+
+.nav-item.logout {
+  margin-top: auto;
+  background: rgba(212, 175, 55, 0.1);
+  color: var(--gold);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   MOBILE HEADER  (hidden on desktop)
+   ════════════════════════════════════════════════════════════════════ */
+.mobile-header {
+  display: none;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   MOBILE BOTTOM TABS  (hidden on desktop)
+   ════════════════════════════════════════════════════════════════════ */
+.mobile-tabs {
+  display: none;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   OVERLAY  (sidebar backdrop on mobile)
+   ════════════════════════════════════════════════════════════════════ */
+.overlay {
+  display: none;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   MAIN CONTENT
+   ════════════════════════════════════════════════════════════════════ */
+.content {
+  flex: 1;
+  margin-left: var(--sidebar-w);
+  padding: 2rem;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+/* ─── Section ────────────────────────────────────────────────────── */
+.section {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.3px;
+}
+
+/* ─── Stat cards ─────────────────────────────────────────────────── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(212, 175, 55, 0.12);
+  padding: 1.25rem 1rem;
+  border-radius: 0.75rem;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(212, 175, 55, 0.1);
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--gold-light);
+}
+
+/* ─── Two-column cards ───────────────────────────────────────────── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 0.75rem;
+  padding: 1.4rem;
+}
+
+.card h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-light);
+  margin-bottom: 0.75rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.pct-change {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.text-success { color: #4caf50; }
+.text-danger  { color: #f44336; }
+
+.chart-placeholder {
+  font-size: 2rem;
+  text-align: center;
+  opacity: 0.5;
+  padding: 1rem 0;
+}
+
+/* Top list */
+.top-list {
+  padding-left: 1.2rem;
+}
+
+.top-list li {
+  font-size: 0.88rem;
+  padding: 0.3rem 0;
+  color: var(--text-light);
+}
+
+.top-list .count {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* Low stock card */
+.low-stock {
+  background: rgba(212, 175, 55, 0.04);
+  border-color: rgba(212, 175, 55, 0.18);
+}
+
+.low-stock h2 { color: var(--gold-light); }
+
+.low-stock ul { list-style: none; }
+
+.low-item {
+  color: var(--gold-light);
+  font-size: 0.88rem;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.no-alerts {
+  color: #4caf50;
+  font-style: italic;
+  font-size: 0.88rem;
+}
+
+/* ─── Tables ─────────────────────────────────────────────────────── */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 0.6rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+}
+
+th, td {
+  padding: 0.7rem 1rem;
+  text-align: left;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+thead {
+  background: rgba(212, 175, 55, 0.08);
+}
+
+thead th {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+tbody tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.15s;
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Status badge */
+.status-badge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 0.3rem;
+  font-size: 0.72rem;
+  color: var(--gold-light);
+  text-transform: capitalize;
+}
+
+/* Order status select */
+td select {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-light);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.35rem;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+/* ─── Filter bar ─────────────────────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.filter-btn {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--text-muted);
+  padding: 0.38rem 0.85rem;
+  border-radius: 0.4rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  text-transform: capitalize;
+}
+
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-light);
+}
+
+.filter-btn.selected {
+  background: var(--gold);
+  color: #000;
+  font-weight: 600;
+}
+
+/* ─── Product header & add button ───────────────────────────────── */
+.product-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.add-btn {
+  background: var(--gold);
+  color: #000;
+  font-weight: 600;
+  padding: 0.5rem 1.1rem;
+  border-radius: 0.45rem;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: opacity 0.18s;
+}
+
+.add-btn:hover { opacity: 0.85; }
+
+/* ─── Add product form ───────────────────────────────────────────── */
+.add-form {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 0.65rem;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.add-form .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.7rem;
+}
+
+.add-form input {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.4rem;
+  color: var(--text-light);
+  font-size: 0.88rem;
+  transition: border-color 0.18s;
+}
+
+.add-form input:focus {
+  border-color: var(--gold);
+}
+
+.add-form input::placeholder { color: #666; }
+
+.save-btn {
+  grid-column: 1 / -1;
+  background: #4caf50;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: opacity 0.18s;
+}
+
+.save-btn:hover { opacity: 0.88; }
+
+/* ─── Product table ──────────────────────────────────────────────── */
+.thumb {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 0.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Inline edit inputs in table */
+td input[type="text"],
+td input:not([type]) {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: var(--text-light);
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.3rem;
+  font-size: 0.85rem;
+  width: 100%;
+  min-width: 80px;
+}
+
+.price-input,
+.stock-input {
+  width: 70px;
+}
+
+/* ─── Action buttons ─────────────────────────────────────────────── */
+.edit-action,
+.save-action,
+.cancel-action {
+  background: transparent;
+  color: var(--gold-light);
+  font-size: 0.82rem;
+  cursor: pointer;
+  margin-right: 0.4rem;
+  transition: text-decoration 0.15s;
+}
+
+.edit-action:hover,
+.save-action:hover,
+.cancel-action:hover {
+  text-decoration: underline;
+}
+
+.delete-action {
+  background: transparent;
+  color: #f44336;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.delete-action:hover {
+  text-decoration: underline;
+}
+
+/* ─── Loader & Error ─────────────────────────────────────────────── */
+.loader {
+  text-align: center;
+  padding: 2.5rem 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.error {
+  color: #f44336;
+  padding: 1rem;
+  background: rgba(255, 0, 0, 0.06);
+  border: 1px solid rgba(255, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   MOBILE  ≤ 768px
+   ════════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Hide desktop sidebar */
+  .sidebar {
+    display: none;
+    transform: translateX(-100%);
+    transition: transform 0.28s ease;
+  }
+
+  /* Show sidebar when .open */
+  .sidebar.open {
+    display: flex;
+    transform: translateX(0);
+    z-index: 1000;
+  }
+
+  /* Overlay */
+  .overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+  }
+
+  /* ── Mobile top header ── */
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    height: var(--mobile-header-h);
+    background: rgba(0, 0, 0, 0.92);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
+  }
+
+  .mobile-header .brand {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
+  }
+
+  .menu-btn,
+  .close-btn,
+  .logout-btn {
+    background: transparent;
+    color: var(--gold);
+    cursor: pointer;
+    padding: 0.3rem;
+    display: flex;
+    align-items: center;
+  }
+
+  /* ── Mobile bottom nav tabs ── */
+  .mobile-tabs {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--mobile-tabs-h);
+    background: rgba(0, 0, 0, 0.95);
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+    z-index: 900;
+  }
+
+  .tab-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    cursor: pointer;
+    padding: 0.4rem 0;
+    transition: color 0.18s;
+  }
+
+  .tab-item span {
+    font-size: 0.65rem;
+    line-height: 1;
+  }
+
+  .tab-item.active {
+    color: var(--gold-light);
+  }
+
+  .tab-item svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* ── Content area ── */
+  .content {
+    margin-left: 0;
+    padding: 1rem;
+    padding-top: calc(var(--mobile-header-h) + 1rem);
+    padding-bottom: calc(var(--mobile-tabs-h) + 1rem);
+  }
+
+  /* ── Stat grid: 2 columns on mobile ── */
+  .stat-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .stat-value {
+    font-size: 1.15rem;
+  }
+
+  /* ── Two-col → single col ── */
+  .two-col {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* ── Section title ── */
+  .section-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  /* ── Filter bar: wrap ── */
+  .filter-bar {
+    gap: 0.4rem;
+  }
+
+  .filter-btn {
+    font-size: 0.78rem;
+    padding: 0.3rem 0.65rem;
+  }
+
+  /* ── Product header ── */
+  .product-header {
+    justify-content: flex-start;
+  }
+
+  /* ── Add form grid ── */
+  .add-form .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── Tables: horizontal scroll with readable sizing ── */
+  .table-wrapper {
+    border-radius: 0.5rem;
+  }
+
+  th, td {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.82rem;
+  }
+
+  /* ── Cards ── */
+  .card {
+    padding: 1.1rem;
+  }
+
+  .card h2 {
+    font-size: 0.95rem;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   SMALL MOBILE  ≤ 400px
+   ════════════════════════════════════════════════════════════════════ */
+@media (max-width: 400px) {
+  .stat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-value {
+    font-size: 1rem;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+  }
+
+  .add-form .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+  }
+}
 /* ─── Add these rules to your existing AdminDashboard.css ─────────────────── */
 
 /* Mini bar chart in "This Week vs Last Week" card */
