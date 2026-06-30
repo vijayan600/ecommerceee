@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { getMyOrders } from '../api/services.js'
 import { Loader2, User } from 'lucide-react'
+import './Profile.css'
 
 function formatMonthYear(dateStr) {
   try {
@@ -48,8 +49,8 @@ export default function Profile() {
   }, [])
 
   if (!user) return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-white p-8 rounded shadow">Please <a href="/login" className="text-indigo-600">login</a></div>
+    <div className="profile-login-prompt">
+      <div className="card">Please <a href="/login">login</a></div>
     </div>
   )
 
@@ -59,11 +60,11 @@ export default function Profile() {
 
   function statusClasses(status) {
     switch (status) {
-      case 'pending': return 'bg-yellow-100 text-yellow-800'
-      case 'confirmed': return 'bg-blue-100 text-blue-800'
-      case 'out_for_delivery': return 'bg-orange-100 text-orange-800'
-      case 'delivered': return 'bg-green-100 text-green-800'
-      default: return 'bg-gray-100 text-gray-800'
+      case 'pending': return 'order-status status-pending'
+      case 'confirmed': return 'order-status status-confirmed'
+      case 'out_for_delivery': return 'order-status status-out_for_delivery'
+      case 'delivered': return 'order-status status-delivered'
+      default: return 'order-status status-default'
     }
   }
 
@@ -103,82 +104,81 @@ export default function Profile() {
   const months = Object.values(groups).sort((a, b) => b.month.localeCompare(a.month)).slice(0, 3)
 
   return (
-    <div className="container mx-auto py-8">
-      <h2 className="text-2xl font-semibold mb-6">My Profile</h2>
+    <div className="profile-page">
+      <h2>My Profile</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="profile-grid">
         {/* Profile Card */}
-        <div className="bg-white p-6 rounded shadow">
-          <div className="flex items-center gap-4">
-            <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
-              {/* placeholder avatar */}
-              <User size={40} className="text-gray-400" />
+        <div className="profile-card">
+          <div className="profile-avatar-row">
+            <div className="profile-avatar">
+              <User size={40} />
             </div>
             <div>
-              <div className="text-lg font-medium">{user.name || '—'}</div>
-              <div className="text-sm text-gray-600">{user.email}</div>
-              <div className="text-sm text-gray-600">{user.phone || '—'}</div>
+              <div className="profile-name">{user.name || '—'}</div>
+              <div className="profile-meta">{user.email}</div>
+              <div className="profile-meta">{user.phone || '—'}</div>
             </div>
           </div>
 
-          <div className="mt-4 text-sm text-gray-700">
+          <div className="profile-stats">
             <div><strong>Member since:</strong> {user.created_at ? formatMonthYear(user.created_at) : '—'}</div>
-            <div className="mt-2"><strong>Total spent:</strong> ₹{totalSpent.toFixed(2)}</div>
+            <div className="spacer"><strong>Total spent:</strong> ₹{totalSpent.toFixed(2)}</div>
           </div>
 
-          <button onClick={logout} className="mt-4 bg-indigo-600 text-white px-4 py-2 rounded">Logout</button>
+          <button onClick={logout} className="logout-btn">Logout</button>
         </div>
 
         {/* Saved Address */}
-        <div className="bg-white p-6 rounded shadow md:col-span-2">
-          <h3 className="text-lg font-medium mb-3">Saved Delivery Address</h3>
+        <div className="profile-card span-2">
+          <h3>Saved Delivery Address</h3>
           {lastAddress ? (
-            <div className="text-sm text-gray-700">
+            <div className="address-text">
               <div><strong>{lastAddress.full_name}</strong> — {lastAddress.phone}</div>
               <div>{lastAddress.street}, {lastAddress.city} - {lastAddress.pincode}</div>
             </div>
           ) : (
-            <div className="text-sm text-gray-600">No address saved yet</div>
+            <div className="address-empty">No address saved yet</div>
           )}
         </div>
       </div>
 
-      <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="profile-section-grid">
         {/* Order History */}
-        <div className="bg-white p-6 rounded shadow">
-          <h3 className="text-lg font-medium mb-4">Order History</h3>
+        <div className="profile-card">
+          <h3>Order History</h3>
 
           {loading ? (
-            <div className="flex items-center gap-2 text-gray-600"><Loader2 className="animate-spin" /> Loading orders...</div>
+            <div className="order-loading"><Loader2 /> Loading orders...</div>
           ) : error ? (
-            <div className="text-red-600">{error}</div>
+            <div className="order-error">{error}</div>
           ) : orders.length === 0 ? (
-            <div className="text-gray-600">No orders yet</div>
+            <div className="order-empty">No orders yet</div>
           ) : (
-            <div className="space-y-4">
+            <div className="order-list">
               {orders.map(order => (
-                <div key={order.id} className="border rounded p-3">
-                  <div className="flex justify-between items-start">
+                <div key={order.id} className="order-item">
+                  <div className="order-item-header">
                     <div>
-                      <div className="text-sm text-gray-600">Order #{String(order.id).slice(-8)}</div>
-                      <div className="text-sm text-gray-500">{formatDate(order.created_at)}</div>
+                      <div className="order-id">Order #{String(order.id).slice(-8)}</div>
+                      <div className="order-date">{formatDate(order.created_at)}</div>
                     </div>
-                    <div className={`px-2 py-1 text-xs font-medium rounded ${statusClasses(order.status)}`}>{order.status}</div>
+                    <div className={statusClasses(order.status)}>{order.status}</div>
                   </div>
 
-                  <div className="mt-3">
+                  <div className="order-items">
                     {order.items?.map((it, idx) => (
-                      <div key={idx} className="flex justify-between text-sm text-gray-700">
+                      <div key={idx} className="order-line">
                         <div>{it.name} x {it.quantity}</div>
                         <div>₹{(Number(it.price) * Number(it.quantity)).toFixed(2)}</div>
                       </div>
                     ))}
                   </div>
 
-                  <div className="mt-3 flex items-center justify-between">
-                    <div className="text-sm font-medium">Total: ₹{Number(order.total_amount).toFixed(2)}</div>
-                    <div className="flex items-center gap-2">
-                      <button onClick={() => reorder(order)} className="bg-indigo-600 text-white px-3 py-1 rounded text-sm">Reorder</button>
+                  <div className="order-footer">
+                    <div className="order-total">Total: ₹{Number(order.total_amount).toFixed(2)}</div>
+                    <div>
+                      <button onClick={() => reorder(order)} className="reorder-btn">Reorder</button>
                     </div>
                   </div>
                 </div>
@@ -186,29 +186,29 @@ export default function Profile() {
             </div>
           )}
 
-          {msg && <div className="mt-3 text-green-600">{msg}</div>}
+          {msg && <div className="order-msg">{msg}</div>}
         </div>
 
         {/* Monthly Summary */}
-        <div className="bg-white p-6 rounded shadow">
-          <h3 className="text-lg font-medium mb-4">Monthly Spend (last 3 months)</h3>
+        <div className="profile-card">
+          <h3>Monthly Spend (last 3 months)</h3>
           {months.length === 0 ? (
-            <div className="text-gray-600">No data</div>
+            <div className="summary-empty">No data</div>
           ) : (
-            <table className="w-full text-sm">
+            <table className="summary-table">
               <thead>
-                <tr className="text-left text-gray-600">
-                  <th className="py-1">Month</th>
-                  <th className="py-1">Orders</th>
-                  <th className="py-1">Total Spent</th>
+                <tr>
+                  <th>Month</th>
+                  <th>Orders</th>
+                  <th>Total Spent</th>
                 </tr>
               </thead>
               <tbody>
                 {months.map(m => (
-                  <tr key={m.month} className="border-t">
-                    <td className="py-2">{formatMonthYear(m.month + '-01')}</td>
-                    <td className="py-2">{m.orders}</td>
-                    <td className="py-2">₹{m.total.toFixed(2)}</td>
+                  <tr key={m.month}>
+                    <td>{formatMonthYear(m.month + '-01')}</td>
+                    <td>{m.orders}</td>
+                    <td>₹{m.total.toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>
