@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useOrders } from '../context/OrderContext';
+import { createRazorpayOrder, verifyPayment, createOrder as apiCreateOrder } from '../api/services.js'
 import { Check, MapPin, CreditCard, ShoppingBag, ChevronRight, AlertCircle } from 'lucide-react';
 import { ERODE_PINCODES } from '../data/pincodes';
 import styles from './Checkout.module.css';
@@ -11,10 +12,10 @@ const Checkout = () => {
   const { placeOrder } = useOrders();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
-  
+
   // Form State
   const [address, setAddress] = useState({
-    name: '', phone: '', pincode: '', line1: '', line2: '', landmark: '', 
+    name: '', phone: '', pincode: '', line1: '', line2: '', landmark: '',
     city: 'Erode', district: 'Erode'
   });
   const [pincodeStatus, setPincodeStatus] = useState(null); // 'erode', 'external', null
@@ -47,85 +48,110 @@ const Checkout = () => {
   };
 
   const payWithRazorpay = () => {
-    return new Promise((resolve, reject) => {
-      // Get the Razorpay Key from Vite env (fallback to the hardcoded test key provided in backend/.env)
-      const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_SqQvZDS6Ko3KA7';
-
-      const options = {
-        key: razorpayKey,
-        amount: cartTotal * 100, // Amount in paise
-        currency: 'INR',
-        name: 'Suguna Wet Grinder',
-        description: 'Order Payment',
-        handler: function (response) {
-          // Payment successful!
-          resolve({
-            razorpay_payment_id: response.razorpay_payment_id,
-            razorpay_order_id: response.razorpay_order_id,
-            razorpay_signature: response.razorpay_signature,
-          });
-        },
-        prefill: {
-          name: address.name,
-          contact: address.phone,
-          email: 'customer@sugunagrinder.com',
-          method: 'upi' // Prefills UPI method immediately
-        },
-        notes: {
-          address: `${address.line1}, ${address.line2}, ${address.city} - ${address.pincode}`
-        },
-        theme: {
-          color: '#fb641b' // Suguna Premium Orange
-        },
-        modal: {
-          ondismiss: function () {
-            reject(new Error('Payment cancelled by user'));
-          }
+    return new Promise(async (resolve, reject) => {
+      try {
+        // Ensure Razorpay script is loaded
+        if (!window.Razorpay) {
+          await new Promise((res, rej) => {
+            const script = document.createElement('script')
+            script.src = 'https://checkout.razorpay.com/v1/checkout.js'
+            script.onload = res
+            script.onerror = rej
+            document.body.appendChild(script)
+          })
         }
-      };
 
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-    });
+        // Backend expects amount in RUPEES — it converts to paise itself.
+        // Do NOT multiply by 100 here, or the order amount will be 100x too large.
+        const orderResp = await createRazorpayOrder(cartTotal)
+        const orderId = orderResp?.order_id || orderResp?.id || orderResp?.orderId
+        if (!orderId) throw new Error('Failed to create payment order')
+
+        // Use the amount returned by the backend (already in paise) so the
+        // Razorpay checkout widget always matches what the order was created with.
+        const amountInPaise = orderResp?.amount || Math.round(cartTotal * 100)
+
+        const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_SqQvZDS6Ko3KA7'
+
+        const options = {
+          key: razorpayKey,
+          amount: amountInPaise,
+          currency: orderResp?.currency || 'INR',
+          name: 'Suguna Wet Grinder',
+          description: 'Order Payment',
+          order_id: orderId,
+          handler: function (response) {
+            resolve({
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+            })
+          },
+          prefill: {
+            name: address.name,
+            contact: address.phone,
+            email: 'customer@sugunagrinder.com',
+            method: 'upi'
+          },
+          notes: {
+            address: `${address.line1}, ${address.line2}, ${address.city} - ${address.pincode}`
+          },
+          theme: { color: '#fb641b' },
+          modal: { ondismiss: function () { reject(new Error('Payment cancelled by user')) } }
+        }
+
+        const rzp = new window.Razorpay(options)
+
+        // Surface real Razorpay-side failures (declined card, bank error, etc.)
+        // instead of letting the modal silently close.
+        rzp.on('payment.failed', function (response) {
+          console.error('Razorpay payment failed:', response.error)
+          reject(new Error(response.error?.description || 'Payment failed'))
+        })
+
+        rzp.open()
+      } catch (err) {
+        console.error('payWithRazorpay error:', err)
+        reject(err)
+      }
+    })
   };
 
   const handlePlaceOrder = async () => {
     setIsProcessing(true);
+    const token = localStorage.getItem('token')
     if (paymentMethod === 'online') {
+      if (!token) {
+        setIsProcessing(false)
+        navigate('/login')
+        return
+      }
       try {
-        const paymentResult = await payWithRazorpay();
-        
-        const newOrder = placeOrder({
-          customerName: address.name,
-          phone: address.phone,
-          items: cart.map(item => ({
-            name: item.name,
-            quantity: item.quantity,
-            price: item.price
-          })),
-          totalAmount: cartTotal,
-          deliveryType: pincodeStatus === 'erode' ? 'door' : 'online',
-          address: {
-            doorNo: address.line1,
-            street: address.line2,
-            area: address.landmark,
+        const paymentResult = await payWithRazorpay()
+
+        // Verify payment with backend
+        await verifyPayment(paymentResult)
+
+        // Create order on backend
+        const orderPayload = {
+          items: cart.map(item => ({ product_id: item.id, quantity: item.quantity })),
+          delivery_address: {
+            full_name: address.name,
+            phone: address.phone,
+            street: `${address.line1} ${address.line2} ${address.landmark || ''}`.trim(),
             city: address.city,
             pincode: address.pincode
           },
-          paymentMethod: 'online',
-          paymentStatus: 'paid',
-          transactionId: paymentResult.razorpay_payment_id
-        });
+          payment_id: paymentResult.razorpay_payment_id
+        }
 
-        clearCart();
-        navigate('/order-confirmation', { 
-          state: { 
-            orderId: newOrder.id,
-            paymentMethod: 'online'
-          } 
-        });
+        await apiCreateOrder(orderPayload)
+
+        clearCart()
+        navigate('/profile', { state: { success: true } })
       } catch (err) {
-        alert(err.message || 'Payment failed or cancelled.');
+        console.error('Order/payment error:', err)
+        alert(err?.message || 'Payment failed, please try again')
       } finally {
         setIsProcessing(false);
       }
@@ -154,11 +180,11 @@ const Checkout = () => {
 
       clearCart();
       setIsProcessing(false);
-      navigate('/order-confirmation', { 
-        state: { 
+      navigate('/order-confirmation', {
+        state: {
           orderId: newOrder.id,
-          paymentMethod: 'cod' 
-        } 
+          paymentMethod: 'cod'
+        }
       });
     }
   };
@@ -233,8 +259,9 @@ const Checkout = () => {
                   </div>
                 </div>
 
-                <button 
-                  className={styles.nextBtn} 
+                <button
+                  type="button"
+                  className={styles.nextBtn}
                   disabled={!pincodeStatus || !address.name || !address.phone}
                   onClick={handleNext}
                 >
@@ -249,7 +276,7 @@ const Checkout = () => {
               <h3>Payment Options</h3>
               <div className={styles.paymentList}>
                 {pincodeStatus === 'erode' && (
-                  <div 
+                  <div
                     className={`${styles.paymentOption} ${paymentMethod === 'cod' ? styles.selected : ''}`}
                     onClick={() => setPaymentMethod('cod')}
                   >
@@ -261,7 +288,7 @@ const Checkout = () => {
                   </div>
                 )}
 
-                <div 
+                <div
                   className={`${styles.paymentOption} ${paymentMethod === 'online' ? styles.selected : ''}`}
                   onClick={() => setPaymentMethod('online')}
                 >
@@ -285,8 +312,9 @@ const Checkout = () => {
                 </div>
               )}
 
-              <button 
-                className={styles.nextBtn} 
+              <button
+                type="button"
+                className={styles.nextBtn}
                 disabled={isProcessing}
                 onClick={handleNext}
               >
