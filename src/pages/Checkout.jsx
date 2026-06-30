@@ -62,7 +62,7 @@ const Checkout = () => {
         }
 
         // Create order on backend to get order_id
-        const orderResp = await createRazorpayOrder(cartTotal)
+        const orderResp = await createRazorpayOrder(Math.round(cartTotal * 100))
         const orderId = orderResp?.order_id || orderResp?.id || orderResp?.orderId
         if (!orderId) throw new Error('Failed to create payment order')
 
@@ -70,7 +70,7 @@ const Checkout = () => {
 
         const options = {
           key: razorpayKey,
-          amount: cartTotal * 100,
+          amount: Math.round(cartTotal * 100),
           currency: 'INR',
           name: 'Suguna Wet Grinder',
           description: 'Order Payment',

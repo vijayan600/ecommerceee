@@ -114,9 +114,11 @@ export async function getOrderById(id) {
 }
 
 // PAYMENT
+// Create Razorpay order – amount should be in paise (integer)
 export async function createRazorpayOrder(amount, currency = 'INR') {
   try {
     const res = await api.post('/payment/create-order', { amount, currency })
+    console.log('createRazorpayOrder response:', res.data)
     return res.data
   } catch (error) {
     const err = error?.response?.data?.detail || error?.response?.data || error.message
