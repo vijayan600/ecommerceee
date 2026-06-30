@@ -8,3 +8,4 @@ test/
 api_smoke_test/
 .vscode/
 app/.env
+.venv
