@@ -29,7 +29,7 @@ export const products = [
     name: "Suguna Table Top Wet Grinder - 2L",
     brand: "Suguna",
     category: "Wet Grinder",
-    price: 4499,
+    price: 1,
     originalPrice: 5999,
     discount: 25,
     rating: 4.8,
