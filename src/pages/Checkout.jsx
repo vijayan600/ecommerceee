@@ -49,7 +49,7 @@ const Checkout = () => {
   const payWithRazorpay = () => {
     return new Promise((resolve, reject) => {
       // Get the Razorpay Key from Vite env (fallback to the hardcoded test key provided in backend/.env)
-      const razorpayKey = import.meta.env.RAZORPAY_KEY_ID;
+      const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY_ID;
 
       const options = {
         key: razorpayKey,
