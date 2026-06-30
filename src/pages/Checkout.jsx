@@ -62,7 +62,7 @@ const Checkout = () => {
         }
 
         // Create order on backend to get order_id
-        const orderResp = await createRazorpayOrder(Math.round(cartTotal * 100))
+        const orderResp = await createRazorpayOrder(cartTotal)
         const orderId = orderResp?.order_id || orderResp?.id || orderResp?.orderId
         if (!orderId) throw new Error('Failed to create payment order')
 
@@ -245,6 +245,7 @@ const Checkout = () => {
                 </div>
 
                 <button 
+                  type="button"
                   className={styles.nextBtn} 
                   disabled={!pincodeStatus || !address.name || !address.phone}
                   onClick={handleNext}
@@ -297,6 +298,7 @@ const Checkout = () => {
               )}
 
               <button 
+                type="button"
                 className={styles.nextBtn} 
                 disabled={isProcessing}
                 onClick={handleNext}
