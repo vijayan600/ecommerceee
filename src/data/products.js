@@ -45,7 +45,7 @@ export const products = [
     name: "Vidiem Jewel ST Wet Grinder",
     brand: "Vidiem",
     category: "Wet Grinder",
-    price: 5200,
+    price: 8200,
     originalPrice: 6500,
     discount: 20,
     rating: 4.6,
