@@ -30,7 +30,7 @@ export const products = [
     brand: "Suguna",
     category: "Wet Grinder",
     price: 1,
-    originalPrice: 5999,
+    originalPrice: 6999,
     discount: 25,
     rating: 4.8,
     reviews: 1240,

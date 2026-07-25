@@ -10,7 +10,7 @@ export function UserRoute({ children }) {
   if (!user) return <Navigate to="/login" replace />
 
   // Allow both user and admin to access user routes (e.g. /profile)
-  return <>{children}</>
+  return <>{children}</>    
 }
 
 export function AdminRoute({ children }) {

@@ -70,12 +70,26 @@ const Navbar = ({ onCartClick }) => {
           </Link>
           {user ? (
             <>
-              <Link to="/profile" className={styles.navLink} onClick={() => setIsMenuOpen(false)}>
-                {user.name?.split(' ')[0] || 'Profile'}
-              </Link>
-              <button className={styles.navLink} onClick={logout} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-                Logout
-              </button>
+              <Link
+  to="/profile"
+  className={styles.navLink}
+  onClick={() => setIsMenuOpen(false)}
+>
+  {user.name?.split(' ')[0] || 'Profile'}
+</Link>
+
+<button
+  className={styles.navLink}
+  onClick={logout}
+  style={{
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    color: '#fff'
+  }}
+>
+  Logout
+</button>
             </>
           ) : (
             <Link to="/login" className={styles.navLink} onClick={() => setIsMenuOpen(false)}>

@@ -15,31 +15,41 @@ import OwnerDashboard from './pages/OwnerDashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import { UserRoute, AdminRoute } from './components/ProtectedRoute';
+import { UserRoute } from './components/ProtectedRoute';
 import ComparePanel from './components/ComparePanel/ComparePanel';
 import CartDrawer from './components/CartDrawer/CartDrawer';
 import { Chatbot } from './components/AIAdvisor/AIAdvisor';
+import { useAuth } from './context/AuthContext';
 
-// Pages where the chatbot should NOT appear
 const HIDDEN_CHATBOT_PATHS = [
-  '/admin',
   '/login',
   '/register',
   '/owner-login',
   '/owner-dashboard',
 ];
 
+const HIDDEN_NAV_PATHS = [
+  '/owner-login',
+  '/owner-dashboard',
+];
+
 function AppContent({ isCartOpen, setIsCartOpen }) {
   const location = useLocation();
+  const { user } = useAuth();
 
-  const showChatbot = !HIDDEN_CHATBOT_PATHS.some(path =>
+  const isAdminProfile = user?.role === 'admin' && location.pathname.startsWith('/profile');
+
+  const showChatbot = !isAdminProfile && !HIDDEN_CHATBOT_PATHS.some(path =>
+    location.pathname.startsWith(path)
+  );
+
+  const showNav = !isAdminProfile && !HIDDEN_NAV_PATHS.some(path =>
     location.pathname.startsWith(path)
   );
 
   return (
     <div className="app">
-      <Navbar onCartClick={() => setIsCartOpen(true)} />
+      {showNav && <Navbar onCartClick={() => setIsCartOpen(true)} />}
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -53,7 +63,6 @@ function AppContent({ isCartOpen, setIsCartOpen }) {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<UserRoute><Profile /></UserRoute>} />
-          <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
         </Routes>
       </main>
       <ComparePanel />
@@ -61,32 +70,34 @@ function AppContent({ isCartOpen, setIsCartOpen }) {
 
       {showChatbot && <Chatbot />}
 
-      <footer style={{ backgroundColor: '#0A1628', color: 'white', padding: '3rem 0', marginTop: '4rem' }}>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
-          <div>
-            <h3 style={{ color: '#FFB800', marginBottom: '1rem' }}>Suguna Wet Grinder (சுகுணா)</h3>
-            <p>Leading Electronics & Kitchen Appliances Shop in Erode.</p>
-            <p style={{ marginTop: '1rem' }}>Cell: 98431 55508 / 98677 11233</p>
-          </div>
-          <div>
-            <h4 style={{ marginBottom: '1rem' }}>Our Brands</h4>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-              {['Suguna', 'Crompton', 'Butterfly', 'Prestige', 'Vidiem', 'Surya', 'Samsung'].map(brand => (
-                <span key={brand} style={{ background: '#1e293b', padding: '0.25rem 0.75rem', borderRadius: '4px', fontSize: '0.8rem' }}>{brand}</span>
-              ))}
+      {showNav && (
+        <footer style={{ backgroundColor: '#0A1628', color: 'white', padding: '3rem 0', marginTop: '4rem' }}>
+          <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
+            <div>
+              <h3 style={{ color: '#FFB800', marginBottom: '1rem' }}>Suguna Wet Grinder (சுகுணா)</h3>
+              <p>Leading Electronics & Kitchen Appliances Shop in Erode.</p>
+              <p style={{ marginTop: '1rem' }}>Cell: 98431 55508 / 98677 11233</p>
+            </div>
+            <div>
+              <h4 style={{ marginBottom: '1rem' }}>Our Brands</h4>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                {['Suguna', 'Crompton', 'Butterfly', 'Prestige', 'Vidiem', 'Surya', 'Samsung'].map(brand => (
+                  <span key={brand} style={{ background: '#1e293b', padding: '0.25rem 0.75rem', borderRadius: '4px', fontSize: '0.8rem' }}>{brand}</span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h4 style={{ marginBottom: '1rem' }}>Location</h4>
+              <p>Erode, Tamil Nadu, India</p>
+              <a href="https://maps.google.com" style={{ color: '#00B4D8', display: 'block', marginTop: '0.5rem' }}>View on Google Maps</a>
             </div>
           </div>
-          <div>
-            <h4 style={{ marginBottom: '1rem' }}>Location</h4>
-            <p>Erode, Tamil Nadu, India</p>
-            <a href="https://maps.google.com" style={{ color: '#00B4D8', display: 'block', marginTop: '0.5rem' }}>View on Google Maps</a>
+          <div className="container" style={{ borderTop: '1px solid #1e293b', marginTop: '2rem', paddingTop: '2rem', textAlign: 'center', opacity: 0.7 }}>
+            <p>&copy; 2026 Suguna Wet Grinder. All rights reserved.</p>
+            <p style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>விழாகால சலுகை — 10% முதல் 50% வரை தள்ளுபடி!</p>
           </div>
-        </div>
-        <div className="container" style={{ borderTop: '1px solid #1e293b', marginTop: '2rem', paddingTop: '2rem', textAlign: 'center', opacity: 0.7 }}>
-          <p>&copy; 2026 Suguna Wet Grinder. All rights reserved.</p>
-          <p style={{ fontSize: '0.8rem', marginTop: '0.5rem' }}>விழாகால சலுகை — 10% முதல் 50% வரை தள்ளுபடி!</p>
-        </div>
-      </footer>
+        </footer>
+      )}
     </div>
   );
 }

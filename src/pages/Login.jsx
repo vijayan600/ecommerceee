@@ -26,8 +26,7 @@ export default function Login() {
     setLoading(true)
     try {
       const role = await login(email, password)
-      if (role === 'admin') navigate('/admin')
-      else navigate('/profile')
+      navigate('/profile')
     } catch (err) {
       setError(typeof err === 'string' ? err : err?.message || 'Login failed')
     } finally {
