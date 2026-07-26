@@ -80,7 +80,7 @@ export const products = [
     originalPrice: 15600,
     discount: 16,
     rating: 4.9,
-    reviews: 320,
+    reviews: 350,
     image: sugunawetgriender2,
     inStock: true,
     badge: "Deal",
