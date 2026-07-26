@@ -76,7 +76,7 @@ export const products = [
     name: "Suguna Commercial Tilting Grinder - 5L",
     brand: "Suguna",
     category: "Wet Grinder",
-    price: 12500,
+    price: 12800,
     originalPrice: 15000,
     discount: 16,
     rating: 4.9,
