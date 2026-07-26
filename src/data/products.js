@@ -64,7 +64,7 @@ export const products = [
     originalPrice: 4999,
     discount: 20,
     rating: 4.5,
-    reviews: 2100,
+    reviews: 5100,
     image: butterflywetgriender,
     inStock: true,
     badge: "New",
