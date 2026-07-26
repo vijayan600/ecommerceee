@@ -60,7 +60,7 @@ export const products = [
     name: "Butterfly Rhino Plus Wet Grinder",
     brand: "Butterfly",
     category: "Wet Grinder",
-    price: 2999,
+    price: 2899,
     originalPrice: 4999,
     discount: 20,
     rating: 4.5,
